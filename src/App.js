@@ -8,8 +8,10 @@ import {
 import React, { useEffect, useState } from "react"
 import "./App.css"
 import InfoBox from "./Component/InfoBox"
+import LineGraph from "./Component/LineGraph"
 import Map from "./Component/Map"
 import Table from "./Component/Table"
+import { sortData } from "./util"
 
 function App() {
   const [countries, setCountries] = useState([])
@@ -38,7 +40,8 @@ function App() {
         name: country.country,
         value: country.countryInfo.iso2,
       }))
-      setTableData(data)
+      const sortedData = sortData(data)
+      setTableData(sortedData)
       setCountries(countries)
     } catch (err) {
       console.log(err.message)
@@ -104,9 +107,10 @@ function App() {
       </div>
       <Card className='app__right'>
         <CardContent>
-          <h3>Live Cases by Country </h3>
+          <h3>Live Covid Cases Update </h3>
           <Table countries={tableData} />
           <h3>WorldWide new cases </h3>
+          <LineGraph />
         </CardContent>
       </Card>
     </div>
